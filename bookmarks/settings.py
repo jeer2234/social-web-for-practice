@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     #my apps
     
     'account.apps.AccountConfig',
+    'images.apps.ImagesConfig',
+
     
     #default apps
     
