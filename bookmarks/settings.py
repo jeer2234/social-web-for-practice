@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from .key import personal_keys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,13 +26,18 @@ SECRET_KEY = 'u3*j$8g688g!ldqdvif*d-gy@&u_8!5i&sbp_k-!@r2gk38u2)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     
+    # third party apps
+
+    'social_django',
+    'django_extensions',
+
     #my apps
     
     'account.apps.AccountConfig',
@@ -44,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    
 ]
 
 MIDDLEWARE = [
@@ -138,4 +146,12 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+
     ]
+
+SOCIAL_AUTH_FACEBOOK_KEY = personal_keys["FACEBOOK_KEY"] # Facebook App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = personal_keys["FACEBOOK_SECRET"] # Facebook App Secret
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+
